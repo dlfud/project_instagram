@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Question List</title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>제목</th>
+    <th>작성일시</th>
+    <th>질문내용</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr th:each="board : ${boardList}">
+    <td th:text="${board.title}"></td>
+    <td th:text="${board.createDate}"></td>
+    <td th:text="${board.content}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
