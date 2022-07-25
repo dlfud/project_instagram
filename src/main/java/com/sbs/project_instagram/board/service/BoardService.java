@@ -18,33 +18,28 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-    private BoardRepository boardRepository;
+
+    private final BoardRepository boardRepository;
 
     public List<Board> getList(){
-        return boardRepository.findAll();
+        return this.boardRepository.findAll();
     }
 
-    public Board getQuestion(Long id) {
-        Optional<Board> opQuestion = this.boardRepository.findById(id);
-        if(opQuestion.isPresent()){
-            Board question = opQuestion.get();
-            //조회수 늘리기
-            question.setViewCount(question.getViewCount() + 1);
-            //바뀐 db저장
-            this.boardRepository.save(question);
-            return question;
-        }
-        else{
-            throw new DataNotFoundException("question not Found");
+    public Board getBoard(Long id){
+        Optional<Board> board = this.boardRepository.findById(id);
+        if(board.isPresent()){
+            return board.get();
+        }else{
+            throw new DataNotFoundException("board not found");
         }
     }
 
     public void create(String title, String content){
-        Board question = new Board();
-        question.setTitle(title);
-        question.setContent(content);
-        question.setCreateDate(LocalDateTime.now());
-        this.boardRepository.save(question);
+        Board board = new Board();
+        board.setTitle(title);
+        board.setContent(content);
+        board.setCreateDate(LocalDateTime.now());
+        this.boardRepository.save(board);
     }
 
     public Page<Board> getList(int page){
@@ -53,5 +48,4 @@ public class BoardService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return this.boardRepository.findAll(pageable);
     }
-
 }

@@ -5,9 +5,8 @@ USE project_instagram;
 CREATE TABLE board(
     id INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(200) NOT NULL,
-    conent TEXT NOT NULL,
-    create_date DATETIME NOT NULL,
-    view_count INT(11) UNSIGNED NOT NULL DEFAULT 0
+    content TEXT NOT NULL,
+    create_date DATETIME NOT NULL
 );
 
 INSERT INTO board SET
@@ -32,23 +31,22 @@ CREATE TABLE Answer (
     id INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     content TEXT NOT NULL,
     create_date DATETIME NOT NULL,
-    board_id INT(11) UNSIGNED NOT NULL,
-    reply_like VARCHAR(10) NOT NULL
+    board_id INT(11) UNSIGNED NOT NULL
 );
 
 INSERT INTO Answer SET
 create_date = NOW(),
 content = '답변내용 1',
-question_id = 1;
+board_id = 1;
 
 INSERT INTO Answer SET
 create_date = NOW(),
 content = '답변내용 2',
-question_id = 2;
+board_id = 2;
 
 INSERT INTO Answer SET
 create_date = NOW(),
 content = '답변내용 3',
-question_id = 3; 
+board_id = 3; 
 
 SELECT * FROM Answer;
