@@ -1,6 +1,5 @@
 package com.sbs.project_instagram.board.controller;
 
-import com.sbs.project_instagram.answer.AnswerForm;
 import com.sbs.project_instagram.board.BoardForm;
 import com.sbs.project_instagram.board.domain.Board;
 import com.sbs.project_instagram.board.service.BoardService;
@@ -21,13 +20,6 @@ import javax.validation.Valid;
 public class SettingController {
     private final BoardService boardService;
 
-    @RequestMapping("/{id}")
-    public String list(Model model, @PathVariable("id") Long id, AnswerForm answerForm){
-        Board board = this.boardService.getBoard(id);
-        model.addAttribute("board", board);
-        return "/setting";
-    }
-
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id){
         Board board = this.boardService.getBoard(id);
@@ -46,9 +38,10 @@ public class SettingController {
     }
 
     @PostMapping("/modify/{id}")
-    public String modify(@PathVariable("id") Long id, @Valid BoardForm boardForm, BindingResult bindingResult){
+    public String modify(Model model, @PathVariable("id") Long id, @Valid BoardForm boardForm, BindingResult bindingResult){
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
+            model.addAttribute("board", board);
             return "/modify";
         }
         this.boardService.modify(board, boardForm.getTitle(), boardForm.getContent());

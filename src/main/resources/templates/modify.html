@@ -2,15 +2,15 @@
 <html layout:decorate="~{/layout}">
 <div layout:fragment="content" class="container">
   <h5 class="my-3 border-bottom pb-2">수정</h5>
-  <form th:action="@{|/setting/modify/{board.id}|}" th:object="${boardForm}" method="post">
+  <form th:action="@{|/setting/modify/${board.id}|}" th:object="${boardForm}" method="post">
     <div th:replace="/form_error :: formErrorsFragment"></div>
     <div class="mb-3">
       <label for="title" class="form-label">제목</label>
-      <input  th:field="*{title}" type="text" name="title" class="form-control" th:value="${board.id}">
+      <input  th:field="*{title}" type="text" name="title" class="form-control" th:value="${board.title}">
     </div>
     <div class="mb-3">
       <label for="content" class="form-label">내용</label>
-      <textarea th:field="*{content}"  name="content" class="form-control" rows="10"></textarea>
+      <textarea th:field="*{content}"  name="content" class="form-control" rows="10" th:value="${board.content}"></textarea>
     </div>
     <input type="submit" value="저장하기" class="btn btn-primary my-2">
   </form>
