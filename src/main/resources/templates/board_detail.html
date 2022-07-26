@@ -18,6 +18,7 @@
             <div class="d-flex justify-content-end">
                 <div class="badge bg-light text-dark p-2 text-start">
                     <div th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
             </div>
         </div>
@@ -46,7 +47,12 @@
     <form th:action="@{|/setting/delete/${board.id}|}" class="delete my-3">
         <input type="submit" value="삭제" class="btn btn-primary my-2">
     </form>
+    <form th:action="@{|/setting/modify/${board.id}|}" class="my-3">
+        <input type="submit" value="수정" class="btn btn-primary my-2">
+    </form>
 </div>
+
+</body>
 <script layout:fragment="script" type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
@@ -57,5 +63,4 @@ Array.from(delete_elements).forEach(function(element) {
     });
 });
 </script>
-</body>
 </html>

@@ -52,4 +52,12 @@ public class BoardService {
     public void delete(Board board){
         this.boardRepository.delete(board);
     }
+
+    public void modify(Board board, String title, String content){
+        board.setTitle(title);
+        board.setContent(content);
+        board.setModifyDate(LocalDateTime.now());
+        this.boardRepository.save(board);
+    }
+
 }
