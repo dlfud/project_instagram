@@ -9,7 +9,11 @@
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
-    <h2 class="border-bottom py-2" th:text="${board.title}"></h2>
+    <div class="row">
+        <h2 class="border-bottom py-2 col-sm-11" th:text="${board.title}"></h2>
+        <a href="https://heinafantasy.com/62" class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</a>
+    </div>
+
     <!-- 질문 -->
 
     <div class="card my-3">
