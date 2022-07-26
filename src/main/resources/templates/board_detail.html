@@ -43,9 +43,19 @@
         <textarea th:field="*{content}" rows="10" class="form-control"></textarea>
         <input type="submit" value="답변등록" class="btn btn-primary my-2">
     </form>
-    <form th:action="@{|/setting/delete/${board.id}|}" class="my-3">
+    <form th:action="@{|/setting/delete/${board.id}|}" class="delete my-3">
         <input type="submit" value="삭제" class="btn btn-primary my-2">
     </form>
 </div>
+<script layout:fragment="script" type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
 </body>
 </html>
