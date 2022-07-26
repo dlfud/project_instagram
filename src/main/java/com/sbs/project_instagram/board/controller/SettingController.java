@@ -6,6 +6,7 @@ import com.sbs.project_instagram.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,12 +26,14 @@ public class SettingController {
 
     @RequestMapping("/modify/{id}")
     public String modify(@PathVariable("id") Long id){
-        return "/setting";
+        return "/board_list";
     }
 
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id){
-        return "/setting";
+        Board board = this.boardService.getBoard(id);
+        this.boardService.delete(board);
+        return "redirect:/board/list";
     }
 
 

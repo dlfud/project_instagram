@@ -48,4 +48,8 @@ public class BoardService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return this.boardRepository.findAll(pageable);
     }
+
+    public void delete(Board board){
+        this.boardRepository.delete(board);
+    }
 }
