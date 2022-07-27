@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div th:if="${!board.onOff}">
+    <div th:if="!${board.onOff}">
         <!-- 답변의 갯수 표시 -->
         <h5 class="border-bottom my-3 py-2"
             th:text="|${#lists.size(board.answerList)}개의 답변이 있습니다.|"></h5>
@@ -67,5 +67,7 @@ Array.from(delete_elements).forEach(function(element) {
         };
     });
 });
+
+
 </script>
 </html>

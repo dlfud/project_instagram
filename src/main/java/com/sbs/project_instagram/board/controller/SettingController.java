@@ -35,7 +35,7 @@ public class SettingController {
     }
 
     @PostMapping("/modify/{id}")
-    public String modify(Model model, @PathVariable("id") Long id, @RequestParam Boolean onOff, @Valid BoardForm boardForm, BindingResult bindingResult){
+    public String modify(Model model, @PathVariable("id") Long id, @RequestParam(value="onOff", required = false) Boolean onOff, @Valid BoardForm boardForm, BindingResult bindingResult){
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
             model.addAttribute("board", board);
