@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{/layout}">
+<html layout:decorate="~{/layout}" xmlns="http://www.w3.org/1999/html">
 <div layout:fragment="content" class="container">
   <h5 class="my-3 border-bottom pb-2">수정</h5>
   <form th:action="@{|/setting/modify/${board.id}|}" th:object="${boardForm}" method="post">
@@ -12,8 +12,15 @@
       <label for="content" class="form-label">내용</label>
       <textarea name="content" class="form-control" rows="10" th:text="${board.content}"></textarea>
     </div>
+
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="onOff">
+      <label class="form-check-label" for="flexSwitchCheckDefault">댓글막기</label>
+    </div>
+
     <input type="submit" value="저장하기" class="btn btn-primary my-2">
     <a th:href="@{|/board/detail/${board.id}|}" class="btn btn-primary my-2">취소</a>
   </form>
 </div>
+
 </html>

@@ -7,7 +7,8 @@ CREATE TABLE board(
     title VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     create_date DATETIME NOT NULL,
-    modify_date DATETIME NOT NULL
+    modify_date DATETIME NOT NULL,
+    on_off TINYINT DEFAULT 0
 );
 
 INSERT INTO board SET

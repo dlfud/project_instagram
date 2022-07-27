@@ -53,10 +53,11 @@ public class BoardService {
         this.boardRepository.delete(board);
     }
 
-    public void modify(Board board, String title, String content){
+    public void modify(Board board, String title, String content, Boolean onOff){
         board.setTitle(title);
         board.setContent(content);
         board.setModifyDate(LocalDateTime.now());
+        board.setOnOff(onOff);
         this.boardRepository.save(board);
     }
 

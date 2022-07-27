@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -38,13 +35,13 @@ public class SettingController {
     }
 
     @PostMapping("/modify/{id}")
-    public String modify(Model model, @PathVariable("id") Long id, @Valid BoardForm boardForm, BindingResult bindingResult){
+    public String modify(Model model, @PathVariable("id") Long id, @RequestParam Boolean onOff, @Valid BoardForm boardForm, BindingResult bindingResult){
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
             model.addAttribute("board", board);
             return "/modify";
         }
-        this.boardService.modify(board, boardForm.getTitle(), boardForm.getContent());
+        this.boardService.modify(board, boardForm.getTitle(), boardForm.getContent(), onOff);
         return String.format("redirect:/board/detail/%s", id);
     }
 

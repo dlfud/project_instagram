@@ -27,37 +27,34 @@
             </div>
         </div>
     </div>
-    <!-- 답변의 갯수 표시 -->
-    <h5 class="border-bottom my-3 py-2"
-        th:text="|${#lists.size(board.answerList)}개의 답변이 있습니다.|"></h5>
-    <!-- 답변 반복 시작 -->
-    <div class="card my-3" th:each="answer : ${board.answerList}">
-        <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
-            <div class="d-flex justify-content-end">
-                <div class="badge bg-light text-dark p-2 text-start">
-                    <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+
+    <div th:if="${!board.onOff}">
+        <!-- 답변의 갯수 표시 -->
+        <h5 class="border-bottom my-3 py-2"
+            th:text="|${#lists.size(board.answerList)}개의 답변이 있습니다.|"></h5>
+        <!-- 답변 반복 시작 -->
+        <div class="card my-3" th:each="answer : ${board.answerList}">
+            <div class="card-body">
+                <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
+                <div class="d-flex justify-content-end">
+                    <div class="badge bg-light text-dark p-2 text-start">
+                        <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- 답변 반복 끝  -->
+        <!-- 답변 작성 -->
+        <form th:action="@{|/answer/create/${board.id}|}" th:object="${answerForm}" method="post" class="my-3">
+            <div th:replace="/form_error :: formErrorsFragment"></div>
+            <textarea th:field="*{content}" rows="10" class="form-control"></textarea>
+            <input type="submit" value="답변등록" class="btn btn-primary my-2">
+        </form>
     </div>
-    <!-- 답변 반복 끝  -->
-    <!-- 답변 작성 -->
-    <form th:action="@{|/answer/create/${board.id}|}" th:object="${answerForm}" method="post" class="my-3">
-        <div th:replace="/form_error :: formErrorsFragment"></div>
-        <textarea th:field="*{content}" rows="10" class="form-control"></textarea>
-        <input type="submit" value="답변등록" class="btn btn-primary my-2">
-    </form>
 
     <a th:href="@{|/setting/delete/${board.id}|}" class="delete btn btn-primary my-2">삭제</a>
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
 
-<!--    <form th:action="@{|/setting/delete/${board.id}|}" class="delete my-3">-->
-<!--        <input type="submit" value="삭제" class="btn btn-primary my-2">-->
-<!--    </form>-->
-<!--    <form th:action="@{|/setting/modify/${board.id}|}" class="my-3">-->
-<!--        <input type="submit" value="수정" class="btn btn-primary my-2">-->
-<!--    </form>-->
 </div>
 
 </body>
