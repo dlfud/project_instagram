@@ -11,11 +11,10 @@
 <div layout:fragment="content" class="container my-3">
     <div class="row">
         <h2 class="border-bottom py-2 col-sm-11" th:text="${board.title}"></h2>
-        <a href="https://heinafantasy.com/62" class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</a>
+        <button class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</button>
     </div>
 
     <!-- 질문 -->
-
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${board.content}"></div>
@@ -52,12 +51,10 @@
         </form>
     </div>
 
-    <a th:href="@{|/setting/delete/${board.id}|}" class="delete btn btn-primary my-2">삭제</a>
+    <a href="javascript:void(0)" th:data-uri="@{|/setting/delete/${board.id}|}" class="delete btn btn-primary my-2">삭제</a>
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
 
 </div>
-
-</body>
 <script layout:fragment="script" type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
@@ -70,4 +67,6 @@ Array.from(delete_elements).forEach(function(element) {
 
 
 </script>
+</body>
+
 </html>
