@@ -11,7 +11,7 @@
 <div layout:fragment="content" class="container my-3">
     <div class="row">
         <h2 class="border-bottom py-2 col-sm-11" th:text="${board.title}"></h2>
-        <button class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</button>
+<!--        <button class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</button>-->
     </div>
 
     <!-- 질문 -->
@@ -53,6 +53,8 @@
 
     <a href="javascript:void(0)" th:data-uri="@{|/setting/delete/${board.id}|}" class="delete btn btn-primary my-2">삭제</a>
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
+    <button th:onclick="javascript:copy();" class="btn btn-primary my-2">링크</button>
+    <button class="btn btn-primary my-2">공유</button>
 
 </div>
 <script layout:fragment="script" type='text/javascript'>
@@ -64,6 +66,17 @@ Array.from(delete_elements).forEach(function(element) {
         };
     });
 });
+</script>
+
+<script layout:fragment="script" type='text/javascript'>
+function copy(){
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.select();
+    document.execCommand('copy');
+    document.body.removeChild(dummy);
+    alert("URL이 클립보드에 복사되었습니다");
+}
 
 
 </script>
