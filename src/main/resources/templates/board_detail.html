@@ -57,14 +57,13 @@
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
     <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
 
-    <a id="btnTwitter" class="link-icon twitter border" href="javascript:shareTwitter();"></a>
-    <a id="btnFacebook" class="link-icon facebook white" href="javascript:shareFacebook();">
-        <div>._._._.</div>
-    </a>
-    <a id="tes323t" class="link-icon kakao" href="javascript:shareKakao();">카카오톡</a>
-    <input type="button" id="test" value="Custom"/>
-    <input type="button" onclick="sendLinkCustom()" value="Custom"/>
+    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오톡</a>
+    <a type="button" th:onclick="javascript:sendLinkCustom()" value="Custom">카카오</a>
+    <input type="button" th:onClick="javascript:sendLinkDefault()" value="Default"/>
+
 </div>
+
 <script layout:fragment="script" type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
@@ -97,54 +96,58 @@ function shareTwitter(){
     window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
 }
 
-</script>
-<script>
-  try {
+function sendLinkCustom() {
+    Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc');
+    Kakao.Link.sendCustom({
+      templateId: 80484
+    });
+}
+
+
+ try {
+ /*<![CDATA[*/
+  function sendLinkDefault() {
     Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
-    Kakao.Link.createDefaultButton({
-      container: '#test',
+    Kakao.Link.sendDefault({
       objectType: 'feed',
-        content: {
-          title: '디저트 사진',
-          description: '아메리카노, 빵, 케익',
-        imageUrl:'http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+      content: {
+        title: '[[${board.title}]]',
+        description: '[[${board.content}]]',
+        imageUrl:
+          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
         link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            androidExecParams: 'test',
+          mobileWebUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
+          webUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
         },
       },
       social: {
-        likeCount: 10,
-        commentCount: 20,
-        sharedCount: 30,
+        likeCount: 286,
+        commentCount: 45,
+        sharedCount: 845,
       },
       buttons: [
         {
-          title: '웹으로 이동',
+          title: '웹으로 보기',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
+            mobileWebUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
+            webUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
           },
         },
         {
-          title: '앱으로 이동',
+          title: '앱으로 보기',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
+            mobileWebUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
+            webUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
           },
         },
-      ]
-    });
-  ; window.kakaoDemoCallback && window.kakaoDemoCallback() }
-  catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
-  </script>
-
-<script>
-  function sendLinkCustom() {
-    Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc');
-    Kakao.Link.sendCustom({
-      templateId: "80484"
-    });
+      ],
+    })
   }
+; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
+catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
 </script>
+
 </body>
 
 
