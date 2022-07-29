@@ -59,8 +59,6 @@
 
     <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
     <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
-<!--    <input type="button" th:onClick="javascript:sendLinkDefault()" value="Default"/>-->
-
 </div>
 
 <script layout:fragment="script" type='text/javascript'>
@@ -98,7 +96,7 @@ function shareTwitter(){
 
  try {
  /*<![CDATA[*/
-  Kakao.init('')
+  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
   function sendLinkDefault() {
     var sendUrl = document.URL;
     Kakao.Link.sendDefault({
@@ -131,6 +129,7 @@ function shareTwitter(){
   }
 ; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
 
 </script>
 
