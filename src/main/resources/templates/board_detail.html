@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>질문 상세</title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
     <div class="row">
         <h2 class="border-bottom py-2 col-sm-11" th:text="${board.title}"></h2>
-<!--        <button class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</button>-->
+        <!--        <button class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</button>-->
     </div>
 
     <!-- 질문 -->
@@ -51,11 +52,18 @@
         </form>
     </div>
 
-    <a href="javascript:void(0)" th:data-uri="@{|/setting/delete/${board.id}|}" class="delete btn btn-primary my-2">삭제</a>
+    <a href="javascript:void(0)" th:data-uri="@{|/setting/delete/${board.id}|}"
+       class="delete btn btn-primary my-2">삭제</a>
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
     <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
-    <button class="btn btn-primary my-2">공유</button>
 
+    <a id="btnTwitter" class="link-icon twitter border" href="javascript:shareTwitter();"></a>
+    <a id="btnFacebook" class="link-icon facebook white" href="javascript:shareFacebook();">
+        <div>._._._.</div>
+    </a>
+    <a id="tes323t" class="link-icon kakao" href="javascript:shareKakao();">카카오톡</a>
+    <input type="button" id="test" value="Custom"/>
+    <input type="button" onclick="sendLinkCustom()" value="Custom"/>
 </div>
 <script layout:fragment="script" type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
@@ -66,6 +74,7 @@ Array.from(delete_elements).forEach(function(element) {
         };
     });
 });
+
 </script>
 
 <script layout:fragment="script" type='text/javascript'>
@@ -82,7 +91,61 @@ function copy(){
 }
 
 
+function shareTwitter(){
+    var sendText = "게시물 제목";
+    var sendUrl = document.URL;
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+
+</script>
+<script>
+  try {
+    Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+    Kakao.Link.createDefaultButton({
+      container: '#test',
+      objectType: 'feed',
+        content: {
+          title: '디저트 사진',
+          description: '아메리카노, 빵, 케익',
+        imageUrl:'http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+        link: {
+            mobileWebUrl: 'https://developers.kakao.com',
+            androidExecParams: 'test',
+        },
+      },
+      social: {
+        likeCount: 10,
+        commentCount: 20,
+        sharedCount: 30,
+      },
+      buttons: [
+        {
+          title: '웹으로 이동',
+          link: {
+            mobileWebUrl: 'https://developers.kakao.com',
+          },
+        },
+        {
+          title: '앱으로 이동',
+          link: {
+            mobileWebUrl: 'https://developers.kakao.com',
+          },
+        },
+      ]
+    });
+  ; window.kakaoDemoCallback && window.kakaoDemoCallback() }
+  catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+  </script>
+
+<script>
+  function sendLinkCustom() {
+    Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc');
+    Kakao.Link.sendCustom({
+      templateId: "80484"
+    });
+  }
 </script>
 </body>
+
 
 </html>
