@@ -58,9 +58,8 @@
     <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
 
     <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
-    <a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();">카카오톡</a>
-    <a type="button" th:onclick="javascript:sendLinkCustom()" value="Custom">카카오</a>
-    <input type="button" th:onClick="javascript:sendLinkDefault()" value="Default"/>
+    <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
+<!--    <input type="button" th:onClick="javascript:sendLinkDefault()" value="Default"/>-->
 
 </div>
 
@@ -89,25 +88,19 @@ function copy(){
     alert("URL이 클립보드에 복사되었습니다");
 }
 
-
+/*<![CDATA[*/
 function shareTwitter(){
-    var sendText = "게시물 제목";
+    var sendText = '[[${board.title}]]';
     var sendUrl = document.URL;
     window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    /*]]>*/
 }
-
-function sendLinkCustom() {
-    Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc');
-    Kakao.Link.sendCustom({
-      templateId: 80484
-    });
-}
-
 
  try {
  /*<![CDATA[*/
+  Kakao.init('')
   function sendLinkDefault() {
-    Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+    var sendUrl = document.URL;
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
@@ -116,8 +109,8 @@ function sendLinkCustom() {
         imageUrl:
           'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
         link: {
-          mobileWebUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
-          webUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
+          mobileWebUrl: sendUrl,
+          webUrl: sendUrl,
         },
       },
       social: {
@@ -129,15 +122,8 @@ function sendLinkCustom() {
         {
           title: '웹으로 보기',
           link: {
-            mobileWebUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
-            webUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
-          },
-        },
-        {
-          title: '앱으로 보기',
-          link: {
-            mobileWebUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
-            webUrl: 'http://localhost:8082/board/detail/[[${board.id}]]',
+            mobileWebUrl: sendUrl,
+            webUrl: sendUrl,
           },
         },
       ],
