@@ -92,49 +92,9 @@ function copy(){
     alert("URL이 클립보드에 복사되었습니다");
 }
 
-/*<![CDATA[*/
-function shareTwitter(){
-    var sendText = '[[${board.title}]]';
-    var sendUrl = document.URL;
-    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
-    /*]]>*/
-}
 
- try {
- /*<![CDATA[*/
-  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
-  function sendLinkDefault() {
-    var sendUrl = document.URL;
-    Kakao.Link.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: '[[${board.title}]]',
-        description: '[[${board.content}]]',
-        imageUrl:
-          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
-        link: {
-          mobileWebUrl: sendUrl,
-          webUrl: sendUrl,
-        },
-      },
-      social: {
-        likeCount: 286,
-        commentCount: 45,
-        sharedCount: 845,
-      },
-      buttons: [
-        {
-          title: '웹으로 보기',
-          link: {
-            mobileWebUrl: sendUrl,
-            webUrl: sendUrl,
-          },
-        },
-      ],
-    })
-  }
-; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
-catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
+
 
 
 </script>
