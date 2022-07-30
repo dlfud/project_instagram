@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>질문 상세</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" href="/style.css">
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
     <div class="row">
         <h2 class="border-bottom py-2 col-sm-11" th:text="${board.title}"></h2>
-        <!--        <button class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">...</button>-->
+        <!-- 설정버튼 -->
+        <a href="#" class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">
+            <img src="./images/option.png" alt="">
+        </a>
     </div>
 
     <!-- 질문 -->
@@ -52,6 +53,12 @@
         </form>
     </div>
 
+
+    <!-- 모달창 -->
+
+
+
+    <!-- 설정기능 -->
     <a href="javascript:void(0)" th:data-uri="@{|/setting/delete/${board.id}|}"
        class="delete btn btn-primary my-2">삭제</a>
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
@@ -61,6 +68,8 @@
     <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
 </div>
 
+
+<!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
@@ -71,9 +80,6 @@ Array.from(delete_elements).forEach(function(element) {
     });
 });
 
-</script>
-
-<script layout:fragment="script" type='text/javascript'>
 function copy(){
     var url = ' ';
     var dummy = document.createElement("textarea");

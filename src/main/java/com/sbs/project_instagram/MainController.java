@@ -9,4 +9,9 @@ public class MainController {
     public String main(){
         return "redirect:/board/list";
     }
+
+    @RequestMapping("/modal")
+    public String modal(){
+        return "/modal";
+    }
 }
