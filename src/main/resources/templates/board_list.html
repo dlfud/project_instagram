@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Question List</title>
-
   <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
@@ -15,6 +15,7 @@
       <th>번호</th>
       <th>제목</th>
       <th>작성일시</th>
+      <th>설정</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,17 @@
                 </span>
       </td>
       <td th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+      <td>
+        <a href="javascript:void(0)" th:data-uri="@{|/setting/delete/${board.id}|}"
+           class="delete btn btn-primary my-2">삭제</a>
+        <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
+        <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
+
+        <a href="#">팔로우</a>
+
+        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+        <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -56,5 +68,76 @@
   <!-- 페이징처리 끝 -->
   <a th:href="@{/board/create}" class="btn btn-primary">질문 등록하기</a>
 </div>
+
+<!-- 자바스크립트 -->
+<script layout:fragment="script" type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+function copy(){
+    var url = ' ';
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    url = window.document.location.href;
+    dummy.value = url;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+    alert("URL이 클립보드에 복사되었습니다");
+}
+
+/*<![CDATA[*/
+function shareTwitter(){
+    var sendText = '[[${board.title}]]';
+    var sendUrl = document.URL;
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    /*]]>*/
+}
+
+ try {
+ /*<![CDATA[*/
+  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+  function sendLinkDefault() {
+    var sendUrl = document.URL;
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '[[${board.title}]]',
+        description: '[[${board.content}]]',
+        imageUrl:
+          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
+        link: {
+          mobileWebUrl: sendUrl,
+          webUrl: sendUrl,
+        },
+      },
+      social: {
+        likeCount: 286,
+        commentCount: 45,
+        sharedCount: 845,
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            mobileWebUrl: sendUrl,
+            webUrl: sendUrl,
+          },
+        },
+      ],
+    })
+  }
+; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
+catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
+
+</script>
+
 </body>
 </html>
