@@ -36,11 +36,10 @@
         <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
         <a th:href="@{|/board/detail/${board.id}|}" class="btn btn-primary my-2">게시글로 이동</a>
 
+        <a th:href="@{|/setting/share/${board.id}|}" class="btn btn-primary my-2">공유</a>
 
         <a href="#" th:onclick="javascript:toggle();" class="btn btn-primary my-2">팔로우</a>
 
-        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
-        <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
       </td>
     </tr>
     </tbody>
@@ -73,6 +72,7 @@
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
+//삭제
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
     element.addEventListener('click', function() {
@@ -83,11 +83,7 @@ Array.from(delete_elements).forEach(function(element) {
 });
 
 
-function toggle(){
-
-}
-
-
+// 링크 복사
 function copy(){
     var url = ' ';
     var dummy = document.createElement("textarea");
@@ -100,7 +96,10 @@ function copy(){
     alert("URL이 클립보드에 복사되었습니다");
 }
 
+// 팔로우
+function toggle(){
 
+}
 
 
 

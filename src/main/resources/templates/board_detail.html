@@ -64,15 +64,16 @@
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
     <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
 
-    <a href="#">팔로우</a>
+    <a href="#" th:onclick="javascript:toggle();" class="btn btn-primary my-2">팔로우</a>
 
-    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
-    <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
+    <a th:href="@{|/setting/share/${board.id}|}" class="btn btn-primary my-2">공유</a>
+
 </div>
 
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
+//삭제
 const delete_elements = document.getElementsByClassName("delete");
 Array.from(delete_elements).forEach(function(element) {
     element.addEventListener('click', function() {
@@ -82,6 +83,7 @@ Array.from(delete_elements).forEach(function(element) {
     });
 });
 
+//링크 복사
 function copy(){
     var url = ' ';
     var dummy = document.createElement("textarea");
@@ -94,6 +96,13 @@ function copy(){
     alert("URL이 클립보드에 복사되었습니다");
 }
 
+// 팔로우
+function toggle(){
+
+}
+
+
+//트위터 공유
 /*<![CDATA[*/
 function shareTwitter(){
     var sendText = '[[${board.title}]]';
@@ -102,6 +111,8 @@ function shareTwitter(){
     /*]]>*/
 }
 
+
+//카톡 공유
  try {
  /*<![CDATA[*/
   Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
@@ -137,6 +148,9 @@ function shareTwitter(){
   }
 ; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
+
+
 
 
 </script>
