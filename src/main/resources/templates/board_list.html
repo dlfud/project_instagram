@@ -34,8 +34,10 @@
            class="delete btn btn-primary my-2">삭제</a>
         <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
         <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
+        <a th:href="@{|/board/detail/${board.id}|}" class="btn btn-primary my-2">게시글로 이동</a>
 
-        <a href="#">팔로우</a>
+
+        <a href="#" th:onclick="javascript:toggle();" class="btn btn-primary my-2">팔로우</a>
 
         <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
         <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
@@ -79,6 +81,12 @@ Array.from(delete_elements).forEach(function(element) {
         };
     });
 });
+
+
+function toggle(){
+
+}
+
 
 function copy(){
     var url = ' ';
