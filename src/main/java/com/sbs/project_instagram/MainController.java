@@ -15,7 +15,7 @@ public class MainController {
         return "/modal";
     }
 
-    @RequestMapping("/asd")
+    @RequestMapping("/post")
     public String asd(){
         return "/post";
     }
