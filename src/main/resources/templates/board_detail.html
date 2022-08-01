@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>질문 상세</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/modal.css}">
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 
 <body>
-<div layout:fragment="content" class="container my-3">
-    <div class="row">
-        <h2 class="border-bottom py-2 col-sm-11" th:text="${board.title}"></h2>
-        <!-- 설정버튼 -->
-        <a href="#" class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">
-            <img src="./images/option.png" alt="">
-        </a>
+<div layout:fragment="content" class="container my-2">
+    <div>
+        <div class="row">
+            <h2 class="border-bottom py-2 col-sm-11" th:text="${board.title}"></h2>
+            <!-- 설정버튼 -->
+            <a href="#" class="col-sm-1 btn float-right p-2 mb-2 bg-info text-dark">
+                <img src="./images/option.png" alt="">
+            </a>
+        </div>
     </div>
 
     <!-- 질문 -->
@@ -67,7 +67,6 @@
     <a href="#" th:onclick="javascript:toggle();" class="btn btn-primary my-2">팔로우</a>
 
     <a th:href="@{|/setting/share/${board.id}|}" class="btn btn-primary my-2">공유</a>
-
 
 
     <!-- 모달 예제 -->
@@ -176,6 +175,7 @@ function shareTwitter(){
   }
 ; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
 
 
 
