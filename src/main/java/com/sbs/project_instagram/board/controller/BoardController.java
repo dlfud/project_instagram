@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/board")
@@ -26,6 +27,14 @@ public class BoardController {
         model.addAttribute("paging", paging);
         return "/board_list";
     }
+
+    @RequestMapping("/post")
+    public String post(Model model){
+        List<Board> boardList = this.boardService.getList();
+        model.addAttribute("board", boardList);
+        return "/post";
+    }
+
 
     @RequestMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Long id, AnswerForm answerForm){

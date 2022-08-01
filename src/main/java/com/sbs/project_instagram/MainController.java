@@ -14,9 +14,4 @@ public class MainController {
     public String modal(){
         return "/modal";
     }
-
-    @RequestMapping("/post")
-    public String asd(){
-        return "/post";
-    }
 }

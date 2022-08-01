@@ -91,12 +91,12 @@
                     삭제하시겠습니까?
                 </div>
                 <div class="modal-body center">
-                    <a href="#">
+                    <a href="@{|/board/delete/${board.id}|}">
                         확인
                     </a>
                     <hr>
 
-                    <a href="#">
+                    <a href="#" data-bs-target="#exampleModal" data-bs-toggle="modal" data-bs-dismiss="modal">
                         취소
                     </a>
                 </div>
@@ -108,15 +108,6 @@
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
-//삭제
-const delete_elements = document.getElementsByClassName("delete");
-Array.from(delete_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        if(confirm("정말로 삭제하시겠습니까?")) {
-            location.href = this.dataset.uri;
-        };
-    });
-});
 
 
 </script>
