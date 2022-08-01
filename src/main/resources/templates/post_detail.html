@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html layout:decorate="~{/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Post_detail</title>
+</head>
+<body>
+<div layout:fragment="content" class="container my-3">
+  <section class="main">
+    <div class="wrapper">
+      <div class="left-col">
+        <div class="post">
+          <div class="info">
+            <div class="user">
+              <div class="profile-pic"><img src="/images/icon-kakao.PNG" alt=""></div>
+              <p class="username">modern_web_channel</p>
+            </div>
+            <!-- 옵션 -->
+            <button type="button" class="btn btn-primary" id="myModal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <img src="/images/option.png" class="options" alt="">
+            </button>
+          </div>
+          <img src="/images/kosom.PNG" class="post-image" alt="">
+          <div class="post-content">
+            <div class="reaction-wrapper">
+              <img src="/images/kosom.PNG" class="icon" alt="">
+              <img src="/images/kosom.PNG" class="icon" alt="">
+              <img src="/images/kosom.PNG" class="icon" alt="">
+              <img src="/images/icon-kakao.PNG" class="save icon" alt="">
+            </div>
+            <p class="likes">1,012 likes</p>
+            <p class="description">
+              <div th:text="${board.title}"></div>
+              <div th:text="${board.content}"></div>
+            </p>
+            <p class="post-time">
+              <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+            </p>
+          </div>
+          <div class="comment-wrapper">
+            <img src="/images/icon-kakao.PNG" class="icon" alt="">
+            <input type="text" class="comment-box" placeholder="Add a comment">
+            <button class="comment-btn">post</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-body center">
+          <a href="#" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
+            삭제
+          </a>
+          <hr>
+
+          <a href="#">
+            수정
+          </a>
+          <hr>
+
+          <a href="#">
+            게시글로 이동
+          </a>
+          <hr>
+
+          <a href="#">
+            링크
+          </a>
+          <hr>
+
+          <a href="#">
+            팔로우
+          </a>
+          <hr>
+
+          <a href="#">
+            공유
+          </a>
+          <hr>
+
+          <a href="#">
+            취소
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal 2 -->
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          삭제하시겠습니까?
+        </div>
+        <div class="modal-body center">
+          <a href="@{|/board/delete/${board.id}|}">
+            확인
+          </a>
+          <hr>
+
+          <a href="#" data-bs-target="#exampleModal" data-bs-toggle="modal" data-bs-dismiss="modal">
+            취소
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 자바스크립트 -->
+<script layout:fragment="script" type='text/javascript'>
+
+
+</script>
+
+</body>
+</html>

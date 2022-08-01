@@ -28,14 +28,6 @@ public class BoardController {
         return "/board_list";
     }
 
-    @RequestMapping("/post")
-    public String post(Model model){
-        List<Board> boardList = this.boardService.getList();
-        model.addAttribute("board", boardList);
-        return "/post";
-    }
-
-
     @RequestMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Long id, AnswerForm answerForm){
         Board board = this.boardService.getBoard(id);
@@ -55,5 +47,21 @@ public class BoardController {
         }
         this.boardService.create(boardForm.getTitle(), boardForm.getContent());
         return "redirect:/board/list";
+    }
+
+
+
+    @RequestMapping("/post")
+    public String post(Model model){
+        List<Board> boardList = this.boardService.getList();
+        model.addAttribute("board", boardList);
+        return "/post";
+    }
+
+    @RequestMapping("/post/detail/{id}")
+    public String postDetail(Model model, @PathVariable("id") Long id, AnswerForm answerForm){
+        Board board = this.boardService.getBoard(id);
+        model.addAttribute("board", board);
+        return "/post_detail";
     }
 }
