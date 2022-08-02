@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Post_detail</title>
+  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
@@ -122,6 +123,11 @@
           공유하기
         </div>
         <div class="modal-body center">
+          <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+          <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
+
+          <hr>
+
           <input type="text" id = "ShareUrl">
           <span class="btn-type1">
             <button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button>
@@ -139,7 +145,7 @@
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
-$.fn.modal.Constructor.prototype._enforceFocus = function() {};
+//$.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
 function url(){
     var obShareUrl = document.getElementById("ShareUrl");
@@ -170,6 +176,52 @@ function CopyUrlToClipboard(){
 }
 
 
+//트위터 공유
+/*<![CDATA[*/
+function shareTwitter(){
+    var sendText = '[[${board.title}]]';
+    var sendUrl = document.URL;
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    /*]]>*/
+}
+
+
+//카톡 공유
+ try {
+ /*<![CDATA[*/
+  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+  function sendLinkDefault() {
+    var sendUrl = document.URL;
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '[[${board.title}]]',
+        description: '[[${board.content}]]',
+        imageUrl:
+          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
+        link: {
+          mobileWebUrl: sendUrl,
+          webUrl: sendUrl,
+        },
+      },
+      social: {
+        likeCount: 286,
+        commentCount: 45,
+        sharedCount: 845,
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            mobileWebUrl: sendUrl,
+            webUrl: sendUrl,
+          },
+        },
+      ],
+    })
+  }
+; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
+catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
 
 </script>
 
