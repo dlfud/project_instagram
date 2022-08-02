@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     @RequestMapping("/")
     public String main(){
-        return "redirect:/board/list";
-    }
-
-    @RequestMapping("/modal")
-    public String modal(){
-        return "/modal";
+        return "redirect:/board/post";
     }
 }
