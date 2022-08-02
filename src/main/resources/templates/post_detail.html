@@ -39,10 +39,12 @@
               <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
             </p>
           </div>
-          <div class="comment-wrapper">
-            <img src="/images/icon-kakao.PNG" class="icon" alt="">
-            <input type="text" class="comment-box" placeholder="Add a comment">
-            <button class="comment-btn">post</button>
+          <div th:if="!${board.onOff}">
+            <div class="comment-wrapper">
+              <img src="/images/icon-kakao.PNG" class="icon" alt="">
+              <input type="text" class="comment-box" placeholder="Add a comment">
+              <button class="comment-btn">post</button>
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +71,7 @@
           </a>
           <hr>
 
-          <a href="#" th:onclick="javascript:copy();">
+          <a href="#" onclick="javascript:copy();">
             링크 복사
           </a>
           <hr>
@@ -79,7 +81,7 @@
           </a>
           <hr>
 
-          <a href="#" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">
+          <a href="#" onclick="javascript:url()" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">
             공유
           </a>
           <hr>
@@ -104,8 +106,8 @@
             확인
           </a>
           <hr>
-          <a th:onclick="javascript:copy();">
-            링크 복사
+          <a href="#" data-bs-dismiss="modal">
+            취소
           </a>
         </div>
       </div>
@@ -120,10 +122,12 @@
           공유하기
         </div>
         <div class="modal-body center">
-<!--          <input type="text" id = "ShareUrl">-->
-<!--          <span class="btn-type1"><button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button></span>-->
+          <input type="text" id = "ShareUrl">
+          <span class="btn-type1">
+            <button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button>
+          </span>
           <hr>
-          <a href="#" data-bs-target="#exampleModal" data-bs-toggle="modal" data-bs-dismiss="modal">
+          <a href="#" data-bs-dismiss="modal">
             취소
           </a>
         </div>
@@ -135,21 +139,27 @@
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
-//링크 복사
-function copy(){
-    var url = ' ';
-    var dummy = document.createElement("textarea");
-    document.body.appendChild(dummy);
-    url = window.document.location.href;
-    dummy.value = url;
-    dummy.select();
-    document.execCommand("copy");
-    document.body.removeChild(dummy);
-    alert("URL이 클립보드에 복사되었습니다");
+$.fn.modal.Constructor.prototype._enforceFocus = function() {};
+
+function url(){
+    var obShareUrl = document.getElementById("ShareUrl");
+    obShareUrl.value = window.document.location.href;
 }
 
-function CopyUrlToClipboard()
-{
+//링크 복사
+function copy(){
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.");
+}
+
+function CopyUrlToClipboard(){
 	var obShareUrl = document.getElementById("ShareUrl");
 	obShareUrl.value = window.document.location.href;
 
@@ -158,6 +168,7 @@ function CopyUrlToClipboard()
 
 	alert("URL이 클립보드에 복사되었습니다");
 }
+
 
 
 </script>

@@ -42,7 +42,7 @@ public class SettingController {
             return "/modify";
         }
         this.boardService.modify(board, boardForm.getTitle(), boardForm.getContent(), onOff);
-        return String.format("redirect:/board/detail/%s", id);
+        return String.format("redirect:/board/post/detail/%s", id);
     }
 
     @RequestMapping("/share/{id}")
