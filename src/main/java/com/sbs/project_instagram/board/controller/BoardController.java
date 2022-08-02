@@ -54,7 +54,7 @@ public class BoardController {
     @RequestMapping("/post")
     public String post(Model model){
         List<Board> boardList = this.boardService.getList();
-        model.addAttribute("board", boardList);
+        model.addAttribute("boards", boardList);
         return "/post";
     }
 

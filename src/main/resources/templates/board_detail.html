@@ -62,7 +62,7 @@
     <a href="javascript:void(0)" th:data-uri="@{|/setting/delete/${board.id}|}"
        class="delete btn btn-primary my-2">삭제</a>
     <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
-    <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
+    <a th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
 
     <a href="#" th:onclick="javascript:toggle();" class="btn btn-primary my-2">팔로우</a>
 

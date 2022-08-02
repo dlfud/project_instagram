@@ -8,6 +8,9 @@
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
+    <div th:each="board : ${boards}">
+        [[${board.title}]]
+    </div>
     <section class="main">
         <div class="wrapper">
             <div class="left-col">
@@ -59,11 +62,12 @@
                         수정
                     </a>
                     <hr>
-
-                    <a href="#">
-                        게시글로 이동
-                    </a>
-                    <hr>
+<!--                    <div th:each="board : ${boards}">-->
+<!--                    <a th:if="#{board.id == 1}" th:href="@{|/board/post/detail/${board.id)}|}">-->
+<!--                        게시글로 이동-->
+<!--                    </a>-->
+<!--                    <hr>-->
+<!--                    </div>-->
 
                     <a href="#">
                         링크
@@ -96,7 +100,7 @@
                     삭제하시겠습니까?
                 </div>
                 <div class="modal-body center">
-                    <a href="@{|/board/delete/${board.id}|}">
+                    <a href="@{|/setting/delete/${board.id}|}">
                         확인
                     </a>
                     <hr>

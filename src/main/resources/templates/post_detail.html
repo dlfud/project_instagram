@@ -59,18 +59,18 @@
           </a>
           <hr>
 
-          <a href="#">
+          <a th:href="@{|/setting/modify/${board.id}|}">
             수정
           </a>
           <hr>
 
-          <a href="#">
-            게시글로 이동
+          <a th:href="@{|/board/post|}">
+            목록으로 이동
           </a>
           <hr>
 
-          <a href="#">
-            링크
+          <a href="#" th:onclick="javascript:copy();">
+            링크 복사
           </a>
           <hr>
 
@@ -79,12 +79,12 @@
           </a>
           <hr>
 
-          <a href="#">
+          <a href="#" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" data-bs-dismiss="modal">
             공유
           </a>
           <hr>
 
-          <a href="#">
+          <a href="#" data-bs-dismiss="modal">
             취소
           </a>
         </div>
@@ -100,11 +100,29 @@
           삭제하시겠습니까?
         </div>
         <div class="modal-body center">
-          <a href="@{|/board/delete/${board.id}|}">
+          <a th:href="@{|/setting/delete/${board.id}|}">
             확인
           </a>
           <hr>
+          <a th:onclick="javascript:copy();">
+            링크 복사
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- modal 3 -->
+  <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          공유하기
+        </div>
+        <div class="modal-body center">
+<!--          <input type="text" id = "ShareUrl">-->
+<!--          <span class="btn-type1"><button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button></span>-->
+          <hr>
           <a href="#" data-bs-target="#exampleModal" data-bs-toggle="modal" data-bs-dismiss="modal">
             취소
           </a>
@@ -117,6 +135,29 @@
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
+//링크 복사
+function copy(){
+    var url = ' ';
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    url = window.document.location.href;
+    dummy.value = url;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+    alert("URL이 클립보드에 복사되었습니다");
+}
+
+function CopyUrlToClipboard()
+{
+	var obShareUrl = document.getElementById("ShareUrl");
+	obShareUrl.value = window.document.location.href;
+
+	obShareUrl.select();
+	document.execCommand("copy");
+
+	alert("URL이 클립보드에 복사되었습니다");
+}
 
 
 </script>

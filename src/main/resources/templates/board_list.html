@@ -34,8 +34,9 @@
         <a th:href="@{|/setting/modify/${board.id}|}" class="btn btn-primary my-2">수정</a>
         <a href="#" th:onclick="javascript:copy(); return false;" class="btn btn-primary my-2">링크</a>
         <a th:href="@{|/board/detail/${board.id}|}" class="btn btn-primary my-2">게시글로 이동</a>
-
-        <a th:href="@{|/setting/share/${board.id}|}" class="btn btn-primary my-2">공유</a>
+        <input type="text" id = "ShareUrl">
+        <span class="btn-type1"><button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button></span>
+<!--        <a href="" OnClick="javascript:CopyUrlToClipboard()" class="btn btn-primary my-2">공유</a>-->
 
         <a href="#" th:onclick="javascript:toggle();" class="btn btn-primary my-2">팔로우</a>
 
@@ -100,7 +101,19 @@ function toggle(){
 
 }
 
+// 공유 띄우기
+function CopyUrlToClipboard()
+{
+	var obShareUrl = document.getElementById("ShareUrl");
+	obShareUrl.value = window.document.location.href; // 현재 URL 을 세팅해 줍니다.
 
+	obShareUrl.select(); // 해당 값이 선택되도록 select() 합니다
+	document.execCommand("copy"); // 클립보드에 복사합니다.
+
+	obShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿈니다.
+
+	alert("URL이 클립보드에 복사되었습니다");
+}
 
 
 </script>
