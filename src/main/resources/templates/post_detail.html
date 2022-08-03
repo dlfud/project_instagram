@@ -33,15 +33,38 @@
                             <img src="/images/icon-kakao.PNG" class="save icon" alt="">
                         </div>
                         <p class="likes">1,012 likes</p>
-                            <p class="description">
-                            <div th:text="${board.title}"></div>
-                            <div th:text="${board.content}"></div>
-                            </p>
-                            <p class="post-time">
-                            <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
-                            </p>
-                        </div>
+                        <p class="description">
+                        <div th:text="${board.title}"></div>
+                        <div th:text="${board.content}"></div>
+                        </p>
+                        <p class="post-time">
+                        <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        </p>
+                    </div>
+
+                        <!-- 댓글 -->
                         <div th:if="!${board.onOff}">
+                            <!-- 답변의 갯수 표시 -->
+                            <h5 class="border-bottom my-3 py-2"
+                                th:text="|${#lists.size(board.answerList)}개의 답변이 있습니다.|"></h5>
+                            <!-- 답변 반복 시작 -->
+                            <div class="card my-3" th:each="answer : ${board.answerList}">
+                                <div class="card-body">
+                                    <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="badge bg-light text-dark p-2 text-start">
+                                            <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 답변 반복 끝  -->
+                            <!-- 답변 작성 -->
+                            <form th:action="@{|/answer/create/${board.id}|}" th:object="${answerForm}" method="post" class="my-3">
+                                <div th:replace="/form_error :: formErrorsFragment"></div>
+                                <textarea th:field="*{content}" rows="10" class="form-control"></textarea>
+                                <input type="submit" value="답변등록" class="btn btn-primary my-2">
+                            </form>
                             <div class="comment-wrapper">
                                 <img src="/images/icon-kakao.PNG" class="icon" alt="">
                             <input type="text" class="comment-box" placeholder="Add a comment">
@@ -58,7 +81,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-body center">
-                    <a href="#" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <a href="" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
                         <div>
                             삭제
                         </div>
@@ -86,7 +109,7 @@
                     </a>
                     <hr>
 
-                    <a href="#">
+                    <a href="">
                         <div>
                             팔로우
                         </div>
@@ -101,7 +124,7 @@
                     </a>
                     <hr>
 
-                    <a href="#" data-bs-dismiss="modal">
+                    <a href="" data-bs-dismiss="modal">
                         <div>
                             취소
                         </div>
@@ -121,11 +144,15 @@
                 </div>
                 <div class="modal-body center">
                     <a th:href="@{|/setting/delete/${board.id}|}">
-                        확인
+                        <div>
+                            확인
+                        </div>
                     </a>
                     <hr>
                     <a href="" data-bs-dismiss="modal">
-                        취소
+                        <div>
+                            취소
+                        </div>
                     </a>
                 </div>
             </div>
@@ -151,7 +178,7 @@
                         <button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button>
                     </span>
                     <hr>
-                    <a href="#" data-bs-dismiss="modal">
+                    <a href="" data-bs-dismiss="modal">
                         <div>
                             취소
                         </div>

@@ -8,110 +8,184 @@
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
-    <div th:each="board : ${boards}">
-        [[${board.title}]]
-    </div>
     <section class="main">
         <div class="wrapper">
             <div class="left-col">
-                <div class="post">
-                    <div class="info">
-                        <div class="user">
-                            <div class="profile-pic"><img src="/images/icon-kakao.PNG" alt=""></div>
-                            <p class="username">modern_web_channel</p>
+                <div th:each="board : ${boardList}">
+                    <div class="post">
+                        <div class="info">
+                            <div class="user">
+                                <div class="profile-pic"><img src="/images/icon-kakao.PNG" alt=""></div>
+                                <p class="username">modern_web_channel</p>
+                            </div>
+                            <!-- 옵션 -->
+                            <button type="button" class="btn btn-primary" id="myModal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <img src="/images/option.png" class="options" alt="">
+                            </button>
                         </div>
-                        <!-- 옵션 -->
-                        <button type="button" class="btn btn-primary" id="myModal" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <img src="/images/option.png" class="options" alt="">
-                        </button>
-                    </div>
-                    <img src="/images/kosom.PNG" class="post-image" alt="">
-                    <div class="post-content">
-                        <div class="reaction-wrapper">
-                            <img src="/images/kosom.PNG" class="icon" alt="">
-                            <img src="/images/kosom.PNG" class="icon" alt="">
-                            <img src="/images/kosom.PNG" class="icon" alt="">
-                            <img src="/images/icon-kakao.PNG" class="save icon" alt="">
+                        <img src="/images/kosom.PNG" class="post-image" alt="">
+                        <div class="post-content">
+                            <div class="reaction-wrapper">
+                                <img src="/images/kosom.PNG" class="icon" alt="">
+                                <img src="/images/kosom.PNG" class="icon" alt="">
+                                <img src="/images/kosom.PNG" class="icon" alt="">
+                                <img src="/images/icon-kakao.PNG" class="save icon" alt="">
+                            </div>
+                            <p class="likes">1,012 likes</p>
+                            <p class="description">
+                            <div th:text="${board.title}"></div>
+                            <div th:text="${board.content}"></div>
+                            </p>
+                            <p class="post-time">
+                            <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                            </p>
                         </div>
-                        <p class="likes">1,012 likes</p>
-                        <p class="description"><span>username </span> Lorem i psum dolor sit amet consectetur, adipisicing elit.
-                            Pariatur tenetur veritatis placeat, molestiae impedit aut provident eum quo natus molestias?</p>
-                        <p class="post-time">2 minutes ago</p>
-                    </div>
-                    <div class="comment-wrapper">
-                        <img src="/images/icon-kakao.PNG" class="icon" alt="">
-                        <input type="text" class="comment-box" placeholder="Add a comment">
-                        <button class="comment-btn">post</button>
+
+                        <!-- 댓글 -->
+                        <div th:if="!${board.onOff}">
+                            <!-- 답변의 갯수 표시 -->
+                            <h5 class="border-bottom my-3 py-2"
+                                th:text="|${#lists.size(board.answerList)}개의 답변이 있습니다.|"></h5>
+                            <!-- 답변 반복 시작 -->
+                            <div class="card my-3" th:each="answer : ${board.answerList}">
+                                <div class="card-body">
+                                    <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="badge bg-light text-dark p-2 text-start">
+                                            <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 답변 반복 끝  -->
+                            <!-- 답변 작성 -->
+                            <form th:action="@{|/answer/create/${board.id}|}" th:object="${answerForm}" method="post" class="my-3">
+                                <div th:replace="/form_error :: formErrorsFragment"></div>
+                                <textarea th:field="*{content}" rows="10" class="form-control"></textarea>
+                                <input type="submit" value="답변등록" class="btn btn-primary my-2">
+                            </form>
+                            <div class="comment-wrapper">
+                                <img src="/images/icon-kakao.PNG" class="icon" alt="">
+                                <input type="text" class="comment-box" placeholder="Add a comment">
+                                <button class="comment-btn">post</button>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-body center">
-                    <a href="#" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
-                        삭제
-                    </a>
-                    <hr>
-
-                    <a href="#">
-                        수정
-                    </a>
-                    <hr>
-<!--                    <div th:each="board : ${boards}">-->
-<!--                    <a th:if="#{board.id == 1}" th:href="@{|/board/post/detail/${board.id)}|}">-->
-<!--                        게시글로 이동-->
+<!--    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-body center">-->
+<!--                    <a href="" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">-->
+<!--                        <div>-->
+<!--                            삭제-->
+<!--                        </div>-->
 <!--                    </a>-->
 <!--                    <hr>-->
-<!--                    </div>-->
 
-                    <a href="#">
-                        링크
-                    </a>
-                    <hr>
+<!--                    <a th:href="@{|/setting/modify/${board.id}|}">-->
+<!--                        <div>-->
+<!--                            수정-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <hr>-->
 
-                    <a href="#">
-                        팔로우
-                    </a>
-                    <hr>
+<!--                    <a th:href="@{|/board/post|}">-->
+<!--                        <div>-->
+<!--                            목록으로 이동-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <hr>-->
 
-                    <a href="#">
-                        공유
-                    </a>
-                    <hr>
+<!--                    <a href="" onclick="javascript:copy();">-->
+<!--                        <div>-->
+<!--                            링크 복사-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <hr>-->
 
-                    <a href="#" data-bs-dismiss="modal">
-                        취소
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                    <a href="">-->
+<!--                        <div>-->
+<!--                            팔로우-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <hr>-->
 
-    <!-- modal 2 -->
-    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    삭제하시겠습니까?
-                </div>
-                <div class="modal-body center">
-                    <a href="@{|/setting/delete/${board.id}|}">
-                        확인
-                    </a>
-                    <hr>
+<!--                    <a href="" onclick="javascript:url()" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal"-->
+<!--                       data-bs-dismiss="modal">-->
+<!--                        <div>-->
+<!--                            공유-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <hr>-->
 
-                    <a href="#" data-bs-target="#exampleModal" data-bs-toggle="modal" data-bs-dismiss="modal">
-                        취소
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                    <a href="" data-bs-dismiss="modal">-->
+<!--                        <div>-->
+<!--                            취소-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; modal 2 &ndash;&gt;-->
+<!--    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"-->
+<!--         tabindex="-1">-->
+<!--        <div class="modal-dialog modal-dialog-centered">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    삭제하시겠습니까?-->
+<!--                </div>-->
+<!--                <div class="modal-body center">-->
+<!--                    <a th:href="@{|/setting/delete/${board.id}|}">-->
+<!--                        <div>-->
+<!--                            확인-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                    <hr>-->
+<!--                    <a href="" data-bs-dismiss="modal">-->
+<!--                        <div>-->
+<!--                            취소-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; modal 3 &ndash;&gt;-->
+<!--    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"-->
+<!--         tabindex="-1">-->
+<!--        <div class="modal-dialog modal-dialog-centered">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    공유하기-->
+<!--                </div>-->
+<!--                <div class="modal-body center">-->
+<!--                    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>-->
+<!--                    <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>-->
+
+<!--                    <hr>-->
+
+<!--                    <input type="text" id="ShareUrl">-->
+<!--                    <span class="btn-type1">-->
+<!--                        <button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button>-->
+<!--                    </span>-->
+<!--                    <hr>-->
+<!--                    <a href="" data-bs-dismiss="modal">-->
+<!--                        <div>-->
+<!--                            취소-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
 </div>
 

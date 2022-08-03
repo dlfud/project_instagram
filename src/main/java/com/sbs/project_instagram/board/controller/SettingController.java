@@ -45,11 +45,5 @@ public class SettingController {
         return String.format("redirect:/board/post/detail/%s", id);
     }
 
-    @RequestMapping("/share/{id}")
-    public String share(Model model, @PathVariable("id") Long id){
-        Board board = boardService.getBoard(id);
-        model.addAttribute("board", board);
-        return "/share_link";
-    }
 
 }
