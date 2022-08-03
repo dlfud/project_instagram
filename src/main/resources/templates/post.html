@@ -20,7 +20,7 @@
                             </div>
                             <!-- 옵션 -->
                             <button type="button" class="btn btn-primary" id="myModal" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
+                                    data-bs-target="#exampleModal" data-id="${board.id}">
                                 <img src="/images/option.png" class="options" alt="">
                             </button>
                         </div>
@@ -52,122 +52,206 @@
         </div>
     </section>
 
-    <!--    &lt;!&ndash; Modal &ndash;&gt;-->
-    <!--    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-    <!--        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">-->
-    <!--            <div class="modal-content">-->
-    <!--                <div class="modal-body center">-->
-    <!--                    <a href="" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">-->
-    <!--                        <div>-->
-    <!--                            삭제-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <hr>-->
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-body center">
+                        <a href="" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
+                            <div>
+                                삭제
+                            </div>
+                        </a>
+                        <hr>
 
-    <!--                    <a th:href="@{|/setting/modify/${board.id}|}">-->
-    <!--                        <div>-->
-    <!--                            수정-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <hr>-->
+                        <a th:href="@{|/setting/modify/${board.id}|}">
+                            <div>
+                                수정
+                            </div>
+                        </a>
+                        <hr>
 
-    <!--                    <a th:href="@{|/board/post|}">-->
-    <!--                        <div>-->
-    <!--                            목록으로 이동-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <hr>-->
+                        <a th:href="@{|/board/post|}">
+                            <div>
+                                목록으로 이동
+                            </div>
+                        </a>
+                        <hr>
 
-    <!--                    <a href="" onclick="javascript:copy();">-->
-    <!--                        <div>-->
-    <!--                            링크 복사-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <hr>-->
+                        <a href="" onclick="javascript:copy();">
+                            <div>
+                                링크 복사
+                            </div>
+                        </a>
+                        <hr>
 
-    <!--                    <a href="">-->
-    <!--                        <div>-->
-    <!--                            팔로우-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <hr>-->
+                        <a href="">
+                            <div>
+                                팔로우
+                            </div>
+                        </a>
+                        <hr>
 
-    <!--                    <a href="" onclick="javascript:url()" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal"-->
-    <!--                       data-bs-dismiss="modal">-->
-    <!--                        <div>-->
-    <!--                            공유-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <hr>-->
+                        <a href="" onclick="javascript:url()" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal"
+                           data-bs-dismiss="modal">
+                            <div>
+                                공유
+                            </div>
+                        </a>
+                        <hr>
 
-    <!--                    <a href="" data-bs-dismiss="modal">-->
-    <!--                        <div>-->
-    <!--                            취소-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+                        <a href="" data-bs-dismiss="modal">
+                            <div>
+                                취소
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!--    &lt;!&ndash; modal 2 &ndash;&gt;-->
-    <!--    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"-->
-    <!--         tabindex="-1">-->
-    <!--        <div class="modal-dialog modal-dialog-centered">-->
-    <!--            <div class="modal-content">-->
-    <!--                <div class="modal-header">-->
-    <!--                    삭제하시겠습니까?-->
-    <!--                </div>-->
-    <!--                <div class="modal-body center">-->
-    <!--                    <a th:href="@{|/setting/delete/${board.id}|}">-->
-    <!--                        <div>-->
-    <!--                            확인-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                    <hr>-->
-    <!--                    <a href="" data-bs-dismiss="modal">-->
-    <!--                        <div>-->
-    <!--                            취소-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+        <!-- modal 2 -->
+        <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+             tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        삭제하시겠습니까?
+                    </div>
+                    <div class="modal-body center">
+                        <a th:href="@{|/setting/delete/${board.id}|}">
+                            <div>
+                                확인
+                            </div>
+                        </a>
+                        <hr>
+                        <a href="" data-bs-dismiss="modal">
+                            <div>
+                                취소
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!--    &lt;!&ndash; modal 3 &ndash;&gt;-->
-    <!--    <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"-->
-    <!--         tabindex="-1">-->
-    <!--        <div class="modal-dialog modal-dialog-centered">-->
-    <!--            <div class="modal-content">-->
-    <!--                <div class="modal-header">-->
-    <!--                    공유하기-->
-    <!--                </div>-->
-    <!--                <div class="modal-body center">-->
-    <!--                    <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>-->
-    <!--                    <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>-->
+        <!-- modal 3 -->
+        <div class="modal fade" id="exampleModalToggle3" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+             tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        공유하기
+                    </div>
+                    <div class="modal-body center">
+                        <a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();">트위터</a>
+                        <a id="btnKakao" class="link-icon kakao" href="javascript:sendLinkDefault();">카카오톡</a>
 
-    <!--                    <hr>-->
+                        <hr>
 
-    <!--                    <input type="text" id="ShareUrl">-->
-    <!--                    <span class="btn-type1">-->
-    <!--                        <button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button>-->
-    <!--                    </span>-->
-    <!--                    <hr>-->
-    <!--                    <a href="" data-bs-dismiss="modal">-->
-    <!--                        <div>-->
-    <!--                            취소-->
-    <!--                        </div>-->
-    <!--                    </a>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+                        <input type="text" id="ShareUrl">
+                        <span class="btn-type1">
+                            <button OnClick="javascript:CopyUrlToClipboard()">URL 복사</button>
+                        </span>
+                        <hr>
+                        <a href="" data-bs-dismiss="modal">
+                            <div>
+                                취소
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </div>
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
+
+function url(){
+    var obShareUrl = document.getElementById("ShareUrl");
+    obShareUrl.value = window.document.location.href;
+}
+
+//링크 복사
+function copy(){
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	textarea.focus();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.");
+}
+
+function CopyUrlToClipboard(){
+	var obShareUrl = document.getElementById("ShareUrl");
+	obShareUrl.value = window.document.location.href;
+
+	obShareUrl.select();
+	document.execCommand("copy");
+
+	alert("URL이 클립보드에 복사되었습니다");
+}
+
+
+//트위터 공유
+/*<![CDATA[*/
+function shareTwitter(){
+    var sendText = '[[${board.title}]]';
+    var sendUrl = document.URL;
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    /*]]>*/
+}
+
+
+//카톡 공유
+ try {
+ /*<![CDATA[*/
+  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+  function sendLinkDefault() {
+    var sendUrl = document.URL;
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '[[${board.title}]]',
+        description: '[[${board.content}]]',
+        imageUrl:
+          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
+        link: {
+          mobileWebUrl: sendUrl,
+          webUrl: sendUrl,
+        },
+      },
+      social: {
+        likeCount: 286,
+        commentCount: 45,
+        sharedCount: 845,
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            mobileWebUrl: sendUrl,
+            webUrl: sendUrl,
+          },
+        },
+      ],
+    })
+  }
+; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
+catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
+
+//modal에 데이터 전달
+$("#myModal").click(function(){
+    var data = $(this).data('id');
+    $("").val(data);
+});
 
 
 </script>
