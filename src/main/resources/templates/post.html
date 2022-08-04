@@ -25,7 +25,7 @@
                             </button>
                         </div>
                         <img src="/images/kosom.PNG" class="post-image" alt="">
-                        <div class="post-content">zo
+                        <div class="post-content">
                             <div class="reaction-wrapper">
                                 <img src="/images/kosom.PNG" class="icon" alt="">
                                 <img src="/images/kosom.PNG" class="icon" alt="">
@@ -73,12 +73,14 @@
 <!--                    </a>-->
 <!--                    <hr>-->
 
-                    <input type="text" id="board_id">
-                    <a th:href="@{/board/post/detail/board_id}">
-                        <div>
-                            게시글로 이동
-                        </div>
-                    </a>
+                    <input type="text" class="board_id">
+                    <span th:with="boardId='1'" class="board_id">
+                        <a th:href="@{|/board/post/detail/${boardId}|}">
+                            <div>
+                                게시글로 이동
+                            </div>
+                        </a>
+                    </span>
                     <hr>
 
                     <a href="" onclick="javascript:copy();">
@@ -169,7 +171,6 @@
 
 </div>
 
-<!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
 function url(){
     var obShareUrl = document.getElementById("ShareUrl");
@@ -201,15 +202,23 @@ function CopyUrlToClipboard(){
 }
 
 
+//modal에 값 전달
+var boardId;
+
+//전달방법 1
 $("#myModal").click(function(){
-	var data = $(this).data('id');
-    $("#board_id").val(data);
+	boardId = $(this).data('id');
+    $(".board_id").val(boardId);
 });
 
+//전달방법 2
 $('#exampleModal').on('show.bs.modal', function (e) {
     var boardId = $(e.relatedTarget).data('id');
+    $(".board_id").val(boardId);
 });
+
 </script>
+<!-- 자바스크립트 -->
 
 
 </body>
