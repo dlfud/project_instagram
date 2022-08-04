@@ -25,9 +25,9 @@ public class AnswerController {
         Board board = this.boardService.getBoard(id);
         if(bindingResult.hasErrors()){
             model.addAttribute("board", board);
-            return "/board_detail";
+            return "/post_detail";
         }
         this.answerService.create(board, answerForm.getContent());
-        return String.format("redirect:/board/detail/%s", id);
+        return String.format("redirect:/board/post/detail/%s", id);
     }
 }
