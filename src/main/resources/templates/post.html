@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <title>Post</title>
 </head>
 <body>
@@ -172,7 +173,7 @@
 <script layout:fragment="script" type='text/javascript'>
 function url(){
     var obShareUrl = document.getElementById("ShareUrl");
-    obShareUrl.value = window.document.location.href;
+    obShareUrl.value = window.document.location.href + "detail/" + sessionStorage.getItem("board_id") ;
 }
 
 //링크 복사
@@ -180,7 +181,7 @@ function copy(){
 	var url = '';
 	var textarea = document.createElement("textarea");
 	document.body.appendChild(textarea);
-	url = window.document.location.href + "/detail/" + sessionStorage.getItem("board.id") ;
+	url = window.document.location.href + "/detail/" + sessionStorage.getItem("board_id") ;
 	textarea.value = url;
 	textarea.select();
 	textarea.focus();
@@ -191,7 +192,7 @@ function copy(){
 
 function CopyUrlToClipboard(){
 	var obShareUrl = document.getElementById("ShareUrl");
-	obShareUrl.value = window.document.location.href + "/detail/" + sessionStorage.getItem("board.id") ;
+	obShareUrl.value = window.document.location.href + "detail/" + sessionStorage.getItem("board_id") ;
 
 	obShareUrl.select();
 	document.execCommand("copy");
@@ -204,18 +205,18 @@ function CopyUrlToClipboard(){
 /*<![CDATA[*/
 function shareTwitter(){
     var sendText = sessionStorage.getItem("board_title");
-    var sendUrl = document.URL;
+    var sendUrl = window.document.location.href + "detail/" + sessionStorage.getItem("board_id") ;
     window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
     /*]]>*/
 }
 
 
+
 //카톡 공유
  try {
- /*<![CDATA[*/
-  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc');
   function sendLinkDefault() {
-    var sendUrl = document.URL;
+    var sendUrl = window.document.location.href + "detail/" + sessionStorage.getItem("board_id");
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
@@ -244,7 +245,7 @@ function shareTwitter(){
       ],
     })
   }
-; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
+; window.kakaoDemoCallback && window.kakaoDemoCallback() }
 catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
 
 
