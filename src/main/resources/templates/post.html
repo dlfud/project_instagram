@@ -19,8 +19,8 @@
                                 <p class="username">modern_web_channel</p>
                             </div>
                             <!-- 옵션 -->
-                            <button type="button" class="btn btn-primary" id="myModal" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" th:data-id="${board.id}">
+                            <button type="button" class="btn" id="myModal" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" th:data-id="${board.id}" th:data-title="${board.title}" th:data-content="${board.content}">
                                 <img src="/images/option.png" class="options" alt="">
                             </button>
                         </div>
@@ -47,6 +47,7 @@
                             <button class="comment-btn">post</button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -66,21 +67,18 @@
                     <hr>
 
 
-<!--                    <a th:href="@{|/setting/modify/${board.id}|}">-->
-<!--                        <div>-->
-<!--                            수정-->
-<!--                        </div>-->
-<!--                    </a>-->
-<!--                    <hr>-->
+                    <a href="javascript:move('/setting/modify/');">
+                        <div>
+                            수정
+                        </div>
+                    </a>
+                    <hr>
 
-                    <input type="text" class="board_id">
-                    <span th:with="boardId='1'" class="board_id">
-                        <a th:href="@{|/board/post/detail/${boardId}|}">
-                            <div>
-                                게시글로 이동
-                            </div>
-                        </a>
-                    </span>
+                    <a href="javascript:move('/board/post/detail/');">
+                        <div>
+                            게시글로 이동
+                        </div>
+                    </a>
                     <hr>
 
                     <a href="" onclick="javascript:copy();">
@@ -124,12 +122,12 @@
                     삭제하시겠습니까?
                 </div>
                 <div class="modal-body center">
-<!--                    <a th:href="@{|/setting/delete/${board.id}|}">-->
-<!--                        <div>-->
-<!--                            확인-->
-<!--                        </div>-->
-<!--                    </a>-->
-<!--                    <hr>-->
+                    <a href="javascript:move('/board/delete/');">
+                        <div>
+                            확인
+                        </div>
+                    </a>
+                    <hr>
                     <a href="" data-bs-dismiss="modal">
                         <div>
                             취소
@@ -182,7 +180,7 @@ function copy(){
 	var url = '';
 	var textarea = document.createElement("textarea");
 	document.body.appendChild(textarea);
-	url = window.document.location.href;
+	url = window.document.location.href + "/detail/" + sessionStorage.getItem("board.id") ;
 	textarea.value = url;
 	textarea.select();
 	textarea.focus();
@@ -193,7 +191,7 @@ function copy(){
 
 function CopyUrlToClipboard(){
 	var obShareUrl = document.getElementById("ShareUrl");
-	obShareUrl.value = window.document.location.href;
+	obShareUrl.value = window.document.location.href + "/detail/" + sessionStorage.getItem("board.id") ;
 
 	obShareUrl.select();
 	document.execCommand("copy");
@@ -202,20 +200,68 @@ function CopyUrlToClipboard(){
 }
 
 
-//modal에 값 전달
-var boardId;
+//트위터 공유
+/*<![CDATA[*/
+function shareTwitter(){
+    var sendText = sessionStorage.getItem("board_title");
+    var sendUrl = document.URL;
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+    /*]]>*/
+}
 
-//전달방법 1
-$("#myModal").click(function(){
-	boardId = $(this).data('id');
-    $(".board_id").val(boardId);
-});
 
-//전달방법 2
+//카톡 공유
+ try {
+ /*<![CDATA[*/
+  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
+  function sendLinkDefault() {
+    var sendUrl = document.URL;
+    Kakao.Link.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: sessionStorage.getItem("board_title"),
+        description: sessionStorage.getItem("board_content"),
+        imageUrl:
+          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
+        link: {
+          mobileWebUrl: sendUrl,
+          webUrl: sendUrl,
+        },
+      },
+      social: {
+        likeCount: 286,
+        commentCount: 45,
+        sharedCount: 845,
+      },
+      buttons: [
+        {
+          title: '웹으로 보기',
+          link: {
+            mobileWebUrl: sendUrl,
+            webUrl: sendUrl,
+          },
+        },
+      ],
+    })
+  }
+; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
+catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
+
+
+//modal에 정보전달
 $('#exampleModal').on('show.bs.modal', function (e) {
     var boardId = $(e.relatedTarget).data('id');
-    $(".board_id").val(boardId);
+    var boardTitle = $(e.relatedTarget).data('title');
+    var boardContent = $(e.relatedTarget).data('content');
+	sessionStorage.setItem("board_id", boardId);
+	sessionStorage.setItem("board_title", boardTitle);
+	sessionStorage.setItem("board_content", boardContent);
 });
+
+function move(url){
+    location.href = url+sessionStorage.getItem("board_id");
+    sessionStorage.removeItem("board_id");
+}
 
 </script>
 <!-- 자바스크립트 -->
