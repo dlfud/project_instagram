@@ -34,12 +34,13 @@ public class BoardService {
         }
     }
 
-    public void create(String title, String content){
+    public Board create(String title, String content){
         Board board = new Board();
         board.setTitle(title);
         board.setContent(content);
         board.setCreateDate(LocalDateTime.now());
         this.boardRepository.save(board);
+        return board;
     }
 
     public Page<Board> getList(int page){
