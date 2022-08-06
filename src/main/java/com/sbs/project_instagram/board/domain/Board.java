@@ -1,6 +1,7 @@
 package com.sbs.project_instagram.board.domain;
 
 import com.sbs.project_instagram.answer.domain.Answer;
+import com.sbs.project_instagram.files.domain.Files;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,4 +31,7 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Files> fileList;
 }

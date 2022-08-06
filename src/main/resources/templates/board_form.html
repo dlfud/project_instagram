@@ -5,13 +5,27 @@
         <div th:replace="/form_error :: formErrorsFragment"></div>
         <div class="mb-3">
             <label for="title" class="form-label">제목</label>
-            <input  th:field="*{title}" type="text" name="title" class="form-control">
+            <input  th:field="*{title}" type="text" name="title" class="form-control" placeholder="제목">
         </div>
+<!--        <div class="mb-3">-->
+<!--            <label for="content" class="form-label">내용</label>-->
+<!--            <textarea th:field="*{content}"  name="content" class="form-control" rows="10"></textarea>-->
+<!--        </div>-->
+<!--        <input type="submit" value="저장하기" class="btn btn-primary my-2">-->
+
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea th:field="*{content}"  name="content" class="form-control" rows="10"></textarea>
+            <textarea th:field="*{content}" name="content" class="form-control" placeholder="내용"></textarea>
         </div>
-        <input type="submit" value="저장하기" class="btn btn-primary my-2">
+        <div class="mb-3">
+            <label for="file" class="form-label">사진/영상</label>
+            <input multiple="multiple" type="file" class="form-control" name="file">
+        </div>
+        <button type="submit" class="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg>
+        </button>
     </form>
 </div>
 </html>

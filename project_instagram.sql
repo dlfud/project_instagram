@@ -55,3 +55,12 @@ content = '답변내용 3',
 board_id = 3; 
 
 SELECT * FROM Answer;
+
+
+CREATE TABLE files(
+    id INT(11) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    file_name TEXT NOT NULL,
+    board_id INT(11) UNSIGNED NOT NULL
+);
+
+SELECT * FROM files;
