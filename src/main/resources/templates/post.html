@@ -34,6 +34,7 @@
                                 <img src="/images/option.png" class="options" alt="">
                             </button>
                         </div>
+                        <!-- 이미지 나오는 곳 -->
                         <div th:each="image : ${board.fileList}">
                             <img th:src="'/uploadFiles/'+${image.fileName}" alt="asdf">
                         </div>
