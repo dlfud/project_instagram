@@ -35,7 +35,7 @@
                             </button>
                         </div>
                         <div th:each="image : ${board.fileList}">
-                            <img th:src="${image.fileName}" alt="asdf">
+                            <img th:src="'/uploadFiles/'+${image.fileName}" alt="asdf">
                         </div>
 <!--                        <img src="/images/kosom.PNG" class="post-image" alt="">-->
                         <div class="post-content">

@@ -22,7 +22,7 @@ public class FilesService {
 
     @Async
     public void upload(BoardForm boardForm, List<MultipartFile> multiFileList){
-        String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static";
+        String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploadFiles";
 
         File fileCheck = new File(root);
         if (!fileCheck.exists()) fileCheck.mkdirs();
