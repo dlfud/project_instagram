@@ -35,7 +35,7 @@
                             </button>
                         </div>
                         <div th:each="image : ${board.fileList}">
-                            <img th:src="'/uploadFiles/'+${image.fileName}" alt="">
+                            <img th:src="${image.fileName}" alt="asdf">
                         </div>
 <!--                        <img src="/images/kosom.PNG" class="post-image" alt="">-->
                         <div class="post-content">
@@ -179,7 +179,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <script layout:fragment="script" type='text/javascript'>
@@ -278,7 +277,6 @@ function move(url){
 
 </script>
 <!-- 자바스크립트 -->
-
 
 </body>
 </html>
