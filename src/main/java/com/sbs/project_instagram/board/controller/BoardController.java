@@ -4,16 +4,13 @@ import com.sbs.project_instagram.answer.AnswerForm;
 import com.sbs.project_instagram.board.BoardForm;
 import com.sbs.project_instagram.board.domain.Board;
 import com.sbs.project_instagram.board.service.BoardService;
+import com.sbs.project_instagram.files.service.FilesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -22,6 +19,7 @@ import java.util.List;
 public class BoardController {
 
     private BoardService boardService;
+    private FilesService filesService;
 
     @GetMapping("/create")
     public String boardCreate(BoardForm boardForm){
@@ -29,11 +27,16 @@ public class BoardController {
     }
 
     @PostMapping("/create")
-    public String boardCreate(@Valid BoardForm boardForm, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "/board_form";
+    public String multiFileUpload(
+            Model model,
+            @RequestParam("multiFile") List<MultipartFile> multiFileList,
+            BoardForm boardForm
+    )throws InterruptedException{
+        try{
+            filesService.upload(boardForm, multiFileList);
+        }catch(Exception e){
+            boardService.create(boardForm.getTitle(), boardForm.getContent());
         }
-        this.boardService.create(boardForm.getTitle(), boardForm.getContent());
         return "redirect:/board/post";
     }
 

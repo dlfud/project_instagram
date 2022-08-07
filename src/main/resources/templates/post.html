@@ -34,7 +34,10 @@
                                 <img src="/images/option.png" class="options" alt="">
                             </button>
                         </div>
-                        <img src="/images/kosom.PNG" class="post-image" alt="">
+                        <div th:each="image : ${board.fileList}">
+                            <img th:src="'/uploadFiles/'+${image.fileName}" alt="">
+                        </div>
+<!--                        <img src="/images/kosom.PNG" class="post-image" alt="">-->
                         <div class="post-content">
                             <div class="reaction-wrapper">
                                 <img src="/images/kosom.PNG" class="icon" alt="">

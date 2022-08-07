@@ -39,6 +39,7 @@ public class BoardService {
         board.setTitle(title);
         board.setContent(content);
         board.setCreateDate(LocalDateTime.now());
+        board.setModifyDate(LocalDateTime.now());
         this.boardRepository.save(board);
         return board;
     }
