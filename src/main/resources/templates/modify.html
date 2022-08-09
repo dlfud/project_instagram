@@ -13,8 +13,15 @@
           </div>
           <form th:action="@{|/setting/modify/${board.id}|}" th:object="${boardForm}" method="post">
             <div th:replace="/form_error :: formErrorsFragment"></div>
-            <div th:each="image : ${board.fileList}">
-              <img th:src="'/uploadFiles/'+${image.fileName}" alt="asdf">
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide" th:each="image : ${board.fileList}">
+                  <img th:src="'/uploadFiles/'+${image.fileName}" alt="asdf">
+                </div>
+              </div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-pagination"></div>
             </div>
             <div class="post-content">
               <div class="reaction-wrapper">
@@ -50,7 +57,7 @@
                 </div>
 
                 <input type="submit" value="저장하기" class="comment-btn">
-                <a th:href="@{|/board/post/detail/${board.id}|}" class="comment-btn">취소</a>
+                <a th:href="@{|/board/post|}" class="comment-btn">취소</a>
               </div>
             </div>
           </form>
@@ -59,4 +66,20 @@
     </div>
   </section>
 </div>
+
+<script layout:fragment="script" type='text/javascript'>
+var swiper = new Swiper(".mySwiper", {
+  spaceBetween: 30,
+  centeredSlides: true,
+  autoplay: false,
+  pagination: {
+  el: ".swiper-pagination",
+  clickable: true,
+  },
+  navigation: {
+  nextEl: ".swiper-button-next",
+  prevEl: ".swiper-button-prev",
+  },
+});
+</script>
 </html>
