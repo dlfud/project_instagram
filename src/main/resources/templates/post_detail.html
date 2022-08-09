@@ -52,6 +52,12 @@
                                 <div class="card-body">
                                     <div class="card-text" style="white-space: pre-line;" th:text="${answer.content}"></div>
                                     <div class="d-flex justify-content-end">
+                                        <!-- 답변 설정창 -->
+                                        <button type="button" class="btn" id="myModal2" data-bs-toggle="modal"
+                                                data-bs-target="#answerModal" th:data-id="${answer.id}"
+                                                th:data-content="${answer.content}">
+                                            <img src="/images/option.png" width="20" height="20" alt="">
+                                        </button>
                                         <div class="badge bg-light text-dark p-2 text-start">
                                             <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                                         </div>
@@ -188,88 +194,80 @@
         </div>
     </div>
 
+
+
+    <!-- 댓글 설정 모달창 -->
+    <!-- Modal -->
+    <div class="modal fade" id="answerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-body center">
+
+                    <a href="" data-bs-target="#answerModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">
+                        <div>
+                            삭제
+                        </div>
+                    </a>
+                    <hr>
+
+                    <a href="javascript:move('/answer/modify/');">
+                        <div>
+                            수정
+                        </div>
+                    </a>
+                    <hr>
+
+                    <a href="" data-bs-dismiss="modal">
+                        <div>
+                            취소
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal 2 -->
+    <div class="modal fade" id="answerModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+         tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    삭제하시겠습니까?
+                </div>
+                <div class="modal-body center">
+                    <a href="javascript:move('/answer/delete/');">
+                        <div>
+                            확인
+                        </div>
+                    </a>
+                    <hr>
+                    <a href="" data-bs-dismiss="modal">
+                        <div>
+                            취소
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <!-- 자바스크립트 -->
 <script layout:fragment="script" type='text/javascript'>
+//modal에 정보전달
+$('#answerModal').on('show.bs.modal', function (e) {
+    var answerId = $(e.relatedTarget).data('id');
+    var answerContent = $(e.relatedTarget).data('content');
+	sessionStorage.setItem("answer_id", answerId);
+	sessionStorage.setItem("answer_content", answerContent);
+});
 
-function url(){
-    var obShareUrl = document.getElementById("ShareUrl");
-    obShareUrl.value = window.document.location.href;
+function move(url){
+    location.href = url+sessionStorage.getItem("answer_id");
+    sessionStorage.removeItem("answer_id");
 }
-
-//링크 복사
-function copy(){
-	var url = '';
-	var textarea = document.createElement("textarea");
-	document.body.appendChild(textarea);
-	url = window.document.location.href;
-	textarea.value = url;
-	textarea.select();
-	textarea.focus();
-	document.execCommand("copy");
-	document.body.removeChild(textarea);
-	alert("URL이 복사되었습니다.");
-}
-
-function CopyUrlToClipboard(){
-	var obShareUrl = document.getElementById("ShareUrl");
-	obShareUrl.value = window.document.location.href;
-
-	obShareUrl.select();
-	document.execCommand("copy");
-
-	alert("URL이 클립보드에 복사되었습니다");
-}
-
-
-//트위터 공유
-/*<![CDATA[*/
-function shareTwitter(){
-    var sendText = '[[${board.title}]]';
-    var sendUrl = document.URL;
-    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
-    /*]]>*/
-}
-
-
-//카톡 공유
- try {
- /*<![CDATA[*/
-  Kakao.init('4961c3cbaa448fb5f0e3995a72595dcc')
-  function sendLinkDefault() {
-    var sendUrl = document.URL;
-    Kakao.Link.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: '[[${board.title}]]',
-        description: '[[${board.content}]]',
-        imageUrl:
-          'https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587514212_1078.jpg',
-        link: {
-          mobileWebUrl: sendUrl,
-          webUrl: sendUrl,
-        },
-      },
-      social: {
-        likeCount: 286,
-        commentCount: 45,
-        sharedCount: 845,
-      },
-      buttons: [
-        {
-          title: '웹으로 보기',
-          link: {
-            mobileWebUrl: sendUrl,
-            webUrl: sendUrl,
-          },
-        },
-      ],
-    })
-  }
-; window.kakaoDemoCallback && window.kakaoDemoCallback() /*]]>*/}
-catch(e) { window.kakaoDemoException && window.kakaoDemoException(e) }
-
 
 </script>
 

@@ -1,6 +1,7 @@
 package com.sbs.project_instagram.answer.controller;
 
 import com.sbs.project_instagram.answer.AnswerForm;
+import com.sbs.project_instagram.answer.domain.Answer;
 import com.sbs.project_instagram.answer.service.AnswerService;
 import com.sbs.project_instagram.board.domain.Board;
 import com.sbs.project_instagram.board.service.BoardService;
@@ -40,5 +41,12 @@ public class AnswerController {
         }
         this.answerService.create(board, answerForm.getContent());
         return String.format("redirect:/board/post/detail/%s", id);
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteAnswer(Model model, @PathVariable("id") Long id){
+        Answer answer = this.answerService.getAnswer(id);
+        this.answerService.delete(answer);
+        return String.format("redirect:/board/post/detail/%s", answer.getBoard().getId());
     }
 }
