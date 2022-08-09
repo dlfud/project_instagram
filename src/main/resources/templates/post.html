@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <title>Post</title>
 </head>
 <body>
@@ -35,9 +36,18 @@
                             </button>
                         </div>
                         <!-- 이미지 나오는 곳 -->
-                        <div th:each="image : ${board.fileList}">
-                            <img th:src="'/uploadFiles/'+${image.fileName}" alt="asdf">
+                        <div class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide" th:each="image : ${board.fileList}">
+                                    <img th:src="'/uploadFiles/'+${image.fileName}" alt="asdf">
+                                </div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
                         </div>
+
+
                         <div class="post-content">
                             <div class="reaction-wrapper">
                                 <img src="/images/kosom.PNG" class="icon" alt="">
@@ -274,6 +284,22 @@ function move(url){
     location.href = url+sessionStorage.getItem("board_id");
     sessionStorage.removeItem("board_id");
 }
+
+
+//이미지 넘기기
+var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: false,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+});
 
 </script>
 <!-- 자바스크립트 -->
