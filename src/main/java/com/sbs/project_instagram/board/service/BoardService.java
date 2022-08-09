@@ -2,6 +2,7 @@ package com.sbs.project_instagram.board.service;
 
 import com.sbs.project_instagram.board.dao.BoardRepository;
 import com.sbs.project_instagram.board.domain.Board;
+import com.sbs.project_instagram.files.domain.Files;
 import com.sbs.project_instagram.util.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,10 @@ public class BoardService {
     }
 
     public void delete(Board board){
+        String root = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\uploadFiles";
+        for(Files file: board.getFileList()){
+            new File(root + "\\" + file.getFileName()).delete();
+        }
         this.boardRepository.delete(board);
     }
 

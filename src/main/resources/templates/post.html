@@ -22,7 +22,7 @@
                     </svg>
                 </a>
 
-                <div th:each ="board : ${boardList}">
+                <div th:each="board : ${boardList}">
                     <div class="post">
                         <div class="info">
                             <div class="user">
@@ -31,7 +31,8 @@
                             </div>
                             <!-- 옵션 -->
                             <button type="button" class="btn" id="myModal" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" th:data-id="${board.id}" th:data-title="${board.title}" th:data-content="${board.content}">
+                                    data-bs-target="#exampleModal" th:data-id="${board.id}"
+                                    th:data-title="${board.title}" th:data-content="${board.content}">
                                 <img src="/images/option.png" class="options" alt="">
                             </button>
                         </div>
@@ -63,14 +64,59 @@
                             <p class="post-time">
                             <div th:text="${#temporals.format(board.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
                             </p>
-                        </div>
-                        <div class="comment-wrapper">
-                            <img src="/images/icon-kakao.PNG" class="icon" alt="">
-                            <input type="text" class="comment-box" placeholder="Add a comment">
-                            <button class="comment-btn">post</button>
-                        </div>
-                    </div>
 
+
+                            <!--답변 on off-->
+                            <div th:if="!${board.onOff}">
+                                <!--답변유무에 따라 답변 모두 보기 표시-->
+                                <div>
+                                    <div>
+                                          <span th:if="${#lists.size(board.answerList)}!=0">
+                                           <a th:href="@{|/board/post/detail/${board.id}|}"
+                                              th:text="|${#lists.size(board.answerList)}개의 답변 모두 보기|"></a>
+                                         </span>
+                                        <span th:if="${#lists.size(board.answerList)}==0"></span>
+                                    </div>
+
+                                    <!--답변 한개 표시-->
+
+                                    <div th:each="answer, index : ${board.answerList}">
+                                        <spanp th:if="${index.index} == 0">
+                                            <spanp th:text="${answer.content}"></spanp>
+                                            <span>
+                                            <form class="InstaDisplayInline"
+                                                  th:action="@{|/answer/main/like/${board.id}/${answer.id}|}"
+                                                  method="post">
+                                            </form>
+                                                </span>
+                                        </spanp>
+
+                                    </div>
+                                </div>
+                            </div>
+                            </p>
+                            <!--일자-->
+                            <p class="post-time">
+                            <div th:text="${#temporals.format(board.createDate, 'M월 d일')}"></div>
+                            </p>
+                        </div>
+                        <!--댓글 달기-->
+                        <form th:action="@{|/answer/create/${board.id}|}" method="post"
+                              class="my-3">
+                            <!-- <div th:replace="user/form_errors :: formErrorsFragment"></div>-->
+                            <div class="comment-wrapper" th:if="${board.onOff}">
+                                <img src="/icon/like.png" class="icon" alt="">
+                                <input name="content" type="text" class="comment-box" placeholder="Add a comment"
+                                       disabled/>
+                                <button type="submit" class="comment-btn">post</button>
+                            </div>
+                            <div class="comment-wrapper" th:unless="${board.onOff}">
+                                <img src="/icon/like.png" class="icon" alt="">
+                                <input name="content" type="text" class="comment-box" placeholder="Add a comment">
+                                <button type="submit" class="comment-btn">post</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -300,6 +346,8 @@ var swiper = new Swiper(".mySwiper", {
       prevEl: ".swiper-button-prev",
     },
 });
+
+
 
 </script>
 <!-- 자바스크립트 -->
