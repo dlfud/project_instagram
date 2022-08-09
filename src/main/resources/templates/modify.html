@@ -13,7 +13,9 @@
           </div>
           <form th:action="@{|/setting/modify/${board.id}|}" th:object="${boardForm}" method="post">
             <div th:replace="/form_error :: formErrorsFragment"></div>
-            <img src="/images/kosom.PNG" class="post-image" alt="">
+            <div th:each="image : ${board.fileList}">
+              <img th:src="'/uploadFiles/'+${image.fileName}" alt="asdf">
+            </div>
             <div class="post-content">
               <div class="reaction-wrapper">
                 <img src="/images/kosom.PNG" class="icon" alt="">
